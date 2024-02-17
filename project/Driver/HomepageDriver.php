@@ -1,0 +1,681 @@
+<?php
+session_start();
+include("../ASSETS/connections/Connection.php");
+?>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../Assets/Templates/Admin/assets//img/apple-icon.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+  <link rel="icon" type="image/png" href="../Assets/Templates/Admin/assets//img/favicon.png">
+  <title>
+   Driver Dashboard
+  </title>
+  <!--     Fonts and icons     -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700"
+    rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="../Assets/Templates/Admin/assets//css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../Assets/Templates/Admin/assets//css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
+  <link href="../Assets/Templates/Admin/assets//css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../Assets/Templates/Admin/assets//css/corporate-ui-dashboard.css?v=1.0.0"
+    rel="stylesheet" />
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+        aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand d-flex align-items-center m-0"
+        href=" https://demos.creative-tim.com/corporate-ui-dashboard/pages/dashboard.html " target="_blank">
+        <span class="font-weight-bold text-lg"><img    src="../ASSETS/Templates/Admin/assets/img/bus-link-high-resolution-logo-transparent.png"  style=" width: 100%;
+  overflow: hidden;"></span>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse px-4  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link  active" href="../index.php">
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+              <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>Driver dashboard</title>
+                <g id="dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="template" transform="translate(12.000000, 12.000000)" fill="#FFFFFFs" fill-rule="nonzero">
+                    <path class="color-foreground"
+                      d="M0,1.71428571 C0,0.76752 0.76752,0 1.71428571,0 L22.2857143,0 C23.2325143,0 24,0.76752 24,1.71428571 L24,5.14285714 C24,6.08962286 23.2325143,6.85714286 22.2857143,6.85714286 L1.71428571,6.85714286 C0.76752,6.85714286 0,6.08962286 0,5.14285714 L0,1.71428571 Z"
+                      id="Path"></path>
+                    <path class="color-background"
+                      d="M0,12 C0,11.0532171 0.76752,10.2857143 1.71428571,10.2857143 L12,10.2857143 C12.9468,10.2857143 13.7142857,11.0532171 13.7142857,12 L13.7142857,22.2857143 C13.7142857,23.2325143 12.9468,24 12,24 L1.71428571,24 C0.76752,24 0,23.2325143 0,22.2857143 L0,12 Z"
+                      id="Path"></path>
+                    <path class="color-background"
+                      d="M18.8571429,10.2857143 C17.9103429,10.2857143 17.1428571,11.0532171 17.1428571,12 L17.1428571,22.2857143 C17.1428571,23.2325143 17.9103429,24 18.8571429,24 L22.2857143,24 C23.2325143,24 24,23.2325143 24,22.2857143 L24,12 C24,11.0532171 23.2325143,10.2857143 22.2857143,10.2857143 L18.8571429,10.2857143 Z"
+                      id="Path"></path>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">HOME</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="Alerts.php">
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+              <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>table</title>
+                <g id="table" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="view-grid" transform="translate(12.000000, 12.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <path class="color-foreground" d="M3.42857143,0 C1.53502286,0 0,1.53502286 0,3.42857143 L0,6.85714286 C0,8.75069143 1.53502286,10.2857143 3.42857143,10.2857143 L6.85714286,10.2857143 C8.75069143,10.2857143 10.2857143,8.75069143 10.2857143,6.85714286 L10.2857143,3.42857143 C10.2857143,1.53502286 8.75069143,0 6.85714286,0 L3.42857143,0 Z" id="Path"></path>
+                    <path class="color-background" d="M3.42857143,13.7142857 C1.53502286,13.7142857 0,15.2492571 0,17.1428571 L0,20.5714286 C0,22.4650286 1.53502286,24 3.42857143,24 L6.85714286,24 C8.75069143,24 10.2857143,22.4650286 10.2857143,20.5714286 L10.2857143,17.1428571 C10.2857143,15.2492571 8.75069143,13.7142857 6.85714286,13.7142857 L3.42857143,13.7142857 Z" id="Path"></path>
+                    <path class="color-background" d="M13.7142857,3.42857143 C13.7142857,1.53502286 15.2492571,0 17.1428571,0 L20.5714286,0 C22.4650286,0 24,1.53502286 24,3.42857143 L24,6.85714286 C24,8.75069143 22.4650286,10.2857143 20.5714286,10.2857143 L17.1428571,10.2857143 C15.2492571,10.2857143 13.7142857,8.75069143 13.7142857,6.85714286 L13.7142857,3.42857143 Z" id="Path"></path>
+                    <path class="color-foreground" d="M13.7142857,17.1428571 C13.7142857,15.2492571 15.2492571,13.7142857 17.1428571,13.7142857 L20.5714286,13.7142857 C22.4650286,13.7142857 24,15.2492571 24,17.1428571 L24,20.5714286 C24,22.4650286 22.4650286,24 20.5714286,24 L17.1428571,24 C15.2492571,24 13.7142857,22.4650286 13.7142857,20.5714286 L13.7142857,17.1428571 Z" id="Path"></path>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1"><h6 style="color:white">Give Alerts</h6></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="Details.php">
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+              <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>Assigned Bus</title>
+                <g id="wallet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="credit-card" transform="translate(12.000000, 15.000000)" fill="#FFFFFF">
+                    <path class="color-background"
+                      d="M3,0 C1.343145,0 0,1.343145 0,3 L0,4.5 L24,4.5 L24,3 C24,1.343145 22.6569,0 21,0 L3,0 Z"
+                      id="Path" fill-rule="nonzero"></path>
+                    <path class="color-foreground"
+                      d="M24,7.5 L0,7.5 L0,15 C0,16.6569 1.343145,18 3,18 L21,18 C22.6569,18 24,16.6569 24,15 L24,7.5 Z M3,13.5 C3,12.67155 3.67158,12 4.5,12 L6,12 C6.82842,12 7.5,12.67155 7.5,13.5 C7.5,14.32845 6.82842,15 6,15 L4.5,15 C3.67158,15 3,14.32845 3,13.5 Z M10.5,12 C9.67158,12 9,12.67155 9,13.5 C9,14.32845 9.67158,15 10.5,15 L12,15 C12.82845,15 13.5,14.32845 13.5,13.5 C13.5,12.67155 12.82845,12 12,12 L10.5,12 Z"
+                      id="Shape"></path>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1"><he style="color:white"><h6 style="color:white">Student in Route Details</h6></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="Drivercomplaints.php">
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+              <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>rtl</title>
+                <g id="rtl" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="menu-alt-3" transform="translate(12.000000, 14.000000)" fill="#FFFFFF">
+                    <path class="color-foreground"
+                      d="M0,1.71428571 C0,0.76752 0.76752,0 1.71428571,0 L22.2857143,0 C23.2325143,0 24,0.76752 24,1.71428571 C24,2.66105143 23.2325143,3.42857143 22.2857143,3.42857143 L1.71428571,3.42857143 C0.76752,3.42857143 0,2.66105143 0,1.71428571 Z"
+                      id="Path"></path>
+                    <path class="color-background"
+                      d="M0,10.2857143 C0,9.33894857 0.76752,8.57142857 1.71428571,8.57142857 L22.2857143,8.57142857 C23.2325143,8.57142857 24,9.33894857 24,10.2857143 C24,11.2325143 23.2325143,12 22.2857143,12 L1.71428571,12 C0.76752,12 0,11.2325143 0,10.2857143 Z"
+                      id="Path"></path>
+                    <path class="color-background"
+                      d="M10.2857143,18.8571429 C10.2857143,17.9103429 11.0532343,17.1428571 12,17.1428571 L22.2857143,17.1428571 C23.2325143,17.1428571 24,17.9103429 24,18.8571429 C24,19.8039429 23.2325143,20.5714286 22.2857143,20.5714286 L12,20.5714286 C11.0532343,20.5714286 10.2857143,19.8039429 10.2857143,18.8571429 Z"
+                      id="Path"></path>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1"><h6 style="color:white">Complaints</h6></span>
+          </a>
+        </li>
+        <li class="nav-item mt-2">
+          <div class="d-flex align-items-center nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="ms-2" viewBox="0 0 24 24"
+              fill="currentColor" class="w-6 h-6">
+              <path fill-rule="evenodd"
+                d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="font-weight-normal text-md ms-2">Account Pages</span>
+          </div>
+        </li>
+        <li class="nav-item border-start my-0 pt-2">
+          <a class="nav-link position-relative ms-0 ps-2 py-2 " href="Driverprofile.php">
+            <span class="nav-link-text ms-1">Profile</span>
+          </a>
+        </li>
+       
+      </ul>
+    </div>
+    <!-- <div class="sidenav-footer mx-4 ">
+      <div class="card border-radius-md" id="sidenavCard">
+        <div class="card-body  text-start  p-3 w-100">
+          <div class="mb-3">
+           Wallet
+          </div>
+          <div class="docs-info">
+          <i class="fa-duotone fa-wallet fa-xl" style="--fa-primary-color: #9fa2d6; --fa-secondary-color: #8198c1;"></i>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg mx-5 px-0 shadow-none rounded" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-2">
+
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group">
+              
+              
+            </div>
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
+            </li>
+            
+            </li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <?php
+              $selQry = 'select count(noti_status) as notification from tbl_stdstp where noti_status=0';
+              $res = $conn->query($selQry);
+              $data = $res->fetch_assoc();
+              $notification_count = $data['notification'];
+              ?>
+              <a href="notification.php" style="text-decoration: none;">
+                <span class="fa-stack fa-lg" data-count="<?php echo $notification_count ?>">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="nav-item ps-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0">
+
+                <?php $sql = "SELECT driver_pic FROM tbl_driver WHERE driver_id =" . $_SESSION['did'];
+                $res = $conn->query($sql);
+                $row = $res->fetch_assoc(); ?>
+          <a href="Driverprofile.php"><img src="../ASSETS/File/User/<?php echo $row['driver_pic'] ?>" width="100" class="avatar avatar-sm"
+                  alt="avatar" /></a>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4 px-5">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-md-flex align-items-center mb-3 mx-2">
+            <div class="mb-md-0 mb-3">
+              <h3 class="font-weight-bold mb-0">Hello,
+                <?php echo $_SESSION['dname']; ?>
+                Welcome to Bus Link
+
+              </h3>
+              <!-- <p class="mb-0">Apps you might like!</p> -->
+            </div>
+            <!-- <button type="button"
+              class="btn btn-sm btn-white btn-icon d-flex align-items-center mb-0 ms-md-auto mb-sm-0 mb-2 me-2">
+              <span class="btn-inner--icon">
+                <span class="p-1 bg-success rounded-circle d-flex ms-auto me-2">
+                  <span class="visually-hidden">New</span>
+                </span>
+              </span>
+              <span class="btn-inner--text">Messages</span>
+            </button> -->
+            <!-- <button type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0">
+              <span class="btn-inner--icon">
+                <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke-width="1.5" stroke="currentColor" class="d-block me-2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+              </span>
+              <span class="btn-inner--text">Sync</span>
+            </button> -->
+          </div>
+        </div>
+      </div>
+      <hr class="my-0">
+
+
+
+      <!-- STart -->
+
+
+      <div class="row" style="margin-top:20px">
+    
+          
+            <div class="col-xl-3 col-sm-6 mb-xl-0">
+              <div class="card border shadow-xs mb-4" style="
+                  width: 300px;
+                  padding: 10px;
+                  margin-left: 20px;
+                  margin-right: 20px;
+              ">
+                <div class="card-body text-start p-3 w-100">
+                  <div
+                    class="icon icon-shape icon-sm bg-dark text-white text-center border-radius-sm d-flex align-items-center justify-content-center mb-3">
+                    <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z" />
+                      <path fill-rule="evenodd"
+                        d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="w-100">
+                        <p class="text-sm text-secondary mb-1">Registered Students in Bus</p>
+                        <h4 class="mb-2 font-weight-bold"></h4>
+                        <div class="d-flex align-items-center">
+                          <span class="text-sm text-success font-weight-bolder">
+                            <?php
+                            $sel = "SELECT count(stureg_id) as cid FROM tbl_studentreg WHERE stud_status = 1";
+                            $result = $conn->query($sel);
+                            $row = $result->fetch_assoc();
+
+                            ?>
+                            <h4 class="mb-2 font-weight-bold"><i class="fa-solid fa-graduation-cap">&nbsp;
+                                <?php echo $row['cid']; ?>
+                              </i></h4>
+                          </span>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+         
+
+         
+
+
+
+        
+         
+
+
+        
+
+<div class="col-xl-3 col-sm-6 mb-xl-0">
+  <div class="card border shadow-xs mb-4"  style="
+width: 300px;
+padding: 10px;
+margin-left: 20px;
+margin-right: 20px;
+">
+    <div class="card-body text-start p-3 w-100">
+      <div
+        class="icon icon-shape icon-sm bg-dark text-white text-center border-radius-sm d-flex align-items-center justify-content-center mb-3">
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+          fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm4.5 7.5a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zm3.75-1.5a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0V12zm2.25-3a.75.75 0 01.75.75v6.75a.75.75 0 01-1.5 0V9.75A.75.75 0 0113.5 9zm3.75-1.5a.75.75 0 00-1.5 0v9a.75.75 0 001.5 0v-9z"
+            clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="w-100">
+            <p class="text-sm text-secondary mb-1">Complaints Given</p>
+
+            <div class="d-flex align-items-center">
+
+              <span class="text-sm text-success font-weight-bolder">
+                <?php
+                $sel = "SELECT count(cmp_id) as cid FROM tbl_complaints";
+                $result = $conn->query($sel);
+                $row = $result->fetch_assoc();
+
+                ?>
+                <h4 class="mb-2 font-weight-bold"><i class="fa-solid fa-van-shuttle">&nbsp;
+                    <?php echo $row['cid']; ?>
+                  </i></h4>
+
+              </span>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-xl-3 col-sm-6 mb-xl-0">
+              <div class="card border shadow-xs mb-4"  style="
+    width: 300px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+">
+                <div class="card-body text-start p-3 w-100">
+                  <div
+                    class="icon icon-shape icon-sm bg-dark text-white text-center border-radius-sm d-flex align-items-center justify-content-center mb-3">
+                    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <path fill-rule="evenodd"
+                        d="M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm4.5 7.5a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zm3.75-1.5a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0V12zm2.25-3a.75.75 0 01.75.75v6.75a.75.75 0 01-1.5 0V9.75A.75.75 0 0113.5 9zm3.75-1.5a.75.75 0 00-1.5 0v9a.75.75 0 001.5 0v-9z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="w-100">
+                        <p class="text-sm text-secondary mb-1">Bus Route</p>
+
+                        <div class="d-flex align-items-center">
+
+                          <span class="text-sm text-success font-weight-bolder">
+                            <?php
+                           $ins = "select * from tbl_assign a inner join tbl_route r on r.route_id=a.route_id inner join tbl_bus b on b.bus_id=a.bus_id where driver_id=" . $_SESSION['did'];
+                           $res = $conn->query($ins);
+                            $row = $res->fetch_assoc();
+
+                            ?>
+                            <h4 class="mb-1 font-weight-bold">&nbsp;
+                              <?php
+                              if($row){ ?>
+                                <?php echo $row['source_name'] . "-" . $row['desti_name'];?>
+                               <?php } else { echo "Data not  received Yet!"; }
+                                
+                                ?>
+                              </h4>
+
+                          </span>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+        
+        </div>
+          </div>
+   
+
+   
+      
+
+    <!--  End-->
+    <div class="row" id="mydiv">
+
+      <div class="col-lg-6" id="n1" style="width:100%">
+
+        <div class="card shadow-xs border">
+          <div class="card-header pb-0">
+            <div class="d-sm-flex align-items-center mb-3">
+              <div>
+                <!-- <h6 class="font-weight-semibold text-lg mb-0" style="font-weight: bold;">Student in the Route Details</h6><br> -->
+                <table class="table table-light" border="2">
+    <tr>
+      <?php
+      $ins = "select * from tbl_assign a inner join tbl_route r on r.route_id=a.route_id inner join tbl_bus b on b.bus_id=a.bus_id where driver_id=" . $_SESSION['did'];
+      $res = $conn->query($ins);
+      if ($row = $res->fetch_assoc()) {
+      ?>
+        <td colspan="2">Assigned Route</td>
+        <td ><?php echo $row['source_name'] . "-" . $row['desti_name']; ?></td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div align="center">Bus Details and Stops</div>
+      </td>
+    </tr>
+    <tr>
+      <td >Bus.NO</td>
+      <td >Bus Capacity</td>
+      <td>Bus Image</td>
+      <td>Stops on Route</td>
+      
+    </tr>
+    <tr>
+      <td><?php echo  $row['bus_regno'] ?></td>
+      <td><?php echo $row['bus_capacity'] ?></td>
+      <td>
+        <img src="../ASSETS/File/User/<?php echo $row['bus_image'] ?>" width="100" />
+      </td>
+     <?php  $sel="select * from tbl_assign a inner join tbl_route r on r.route_id=a.route_id inner join tbl_stop sto on sto.route_id=r.route_id inner join tbl_bus b on b.bus_id=a.bus_id where driver_id=". $_SESSION['did'];
+        $res1 = $conn->query($sel);
+        while($row1 = $res1->fetch_assoc()) {?>
+      <td><?php echo $row1['stop_name']."," ?></td>
+      <?php } ?>
+    </tr>
+  </table>
+    <?php   } 
+    else
+    echo "No Bus Assigned Yet"?>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+              </div>
+              <div class="ms-auto d-flex">
+<?php $sel="select * from tbl_assign a inner join tbl_route r  inner join tbl_driver d on r.route_id=a.route_id where d.driver_id=".$_SESSION['did'];
+$res=$conn->query($sel);
+$row=$res->fetch_assoc();?>
+                <button class="btn btn-sm btn-white mb-0 me-2" id="printButton">
+                 Assigned Route:<?php echo $row["source_name"]. "-".$row["desti_name"] ?>
+                </button><br>
+              </div>
+            </div>
+            <div class="d-sm-flex align-items-center">
+
+
+              </span>
+            </div>
+          </div>
+        
+        </div>
+
+
+      </div>
+    
+  </main>
+
+ 
+
+  <!--   Core JS Files   -->
+  <script src="../Assets/Templates/Admin/assets//js/core/popper.min.js"></script>
+  <script src="../Assets/Templates/Admin/assets//js/core/bootstrap.min.js"></script>
+  <script src="../Assets/Templates/Admin/assets//js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../Assets/Templates/Admin/assets//js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../Assets/Templates/Admin/assets//js/plugins/chartjs.min.js"></script>
+  <script src="../Assets/Templates/Admin/assets//js/plugins/swiper-bundle.min.js" type="text/javascript"></script>
+  <script>
+    if (document.getElementsByClassName('mySwiper')) {
+      var swiper = new Swiper(".mySwiper", {
+        effect: "cards",
+        grabCursor: true,
+        initialSlide: 1,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    };
+
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+
+    function generateRandomColor() {
+
+      var r = Math.floor(Math.random() * 128); // Red component
+      var g = Math.floor(Math.random() * 128); // Green component
+      var b = Math.floor(Math.random() * 128); // Blue component
+
+      // Convert the RGB components to a CSS color string
+      var color = 'rgb(' + r + ',' + g + ',' + b + ')';
+      return color;
+    }
+    var xValues = <?php echo json_encode($xValues); ?>;
+    var yValues = <?php echo json_encode($yValues); ?>;
+    var barColors = [];
+
+    // Generate random colors and add them to the barColors array
+    for (var i = 0; i < xValues.length; i++) {
+      barColors.push(generateRandomColor());
+    }
+
+    const chart = new Chart(ctx2, {
+      plugins: [{
+        beforeInit(chart) {
+          const originalFit = chart.legend.fit;
+          chart.legend.fit = function fit() {
+            originalFit.bind(chart.legend)();
+            this.height += 40;
+          }
+        },
+      }],
+
+
+
+      type: "doughnut",
+      data: {
+
+
+
+        labels: xValues,
+
+        datasets: [{
+          label: "Volume",
+          tension: 0,
+          borderWidth: 2,
+          pointRadius: 3,
+          backgroundColor: barColors,
+          borderColor: barColors,
+          pointBorderColor: barColors,
+          pointBackgroundColor: barColors,
+          fill: true,
+          data: yValues,
+          maxBarThickness: 6
+
+        },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'end',
+            labels: {
+              boxWidth: 6,
+              boxHeight: 6,
+              padding: 20,
+              pointStyle: 'circle',
+              borderRadius: 50,
+              usePointStyle: true,
+              font: {
+                weight: 400,
+              },
+            },
+          },
+          tooltip: {
+            backgroundColor: '#fff',
+            titleColor: barColors,
+            bodyColor: barColors,
+            borderColor: barColors,
+            borderWidth: 1,
+            pointRadius: 2,
+            usePointStyle: true,
+            boxWidth: 8,
+          }
+        },
+        //interaction: {
+        //intersect: false,
+        // mode: 'index',
+        // },
+
+      },
+    });
+
+
+
+
+  </script>
+
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../Assets/Templates/Admin/assets//js/corporate-ui-dashboard.min.js?v=1.0.0"></script>
+</body>
+<script>
+
+
+  function printChart() {
+    // Get the canvas element
+    var canvas = document.getElementById('myChart');
+
+    // Convert the chart to a data URL
+    var image = canvas.toDataURL('image/png');
+
+    // Create an image element and set the data URL as its source
+    var imgElement = new Image();
+    imgElement.src = image;
+
+    // Display the image on the page or do further processing
+    document.body.appendChild(imgElement);
+    //document.body.innerHTML = imgElement;
+
+    window.print();
+  }
+  function printChart() {
+    // Get the canvas element
+    var canvas = document.getElementById('myChart');
+
+    // Convert the chart to a data URL
+    var image = canvas.toDataURL('image/png');
+
+    // Create an image element and set the data URL as its source
+    var imgElement = new Image();
+    imgElement.src = image;
+
+    // Display the image on the page or do further processing
+    document.body.appendChild(imgElement);
+  }
+
+
+</script>
+
+
+</body>
+
+</html>
